@@ -1,144 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wanna be My Valentine??</title>
-    <link rel="stylesheet" href="style.css" />
-    <meta name="description" content="There is a surprise." />
-    <meta name="keywords" content="Valentine, Love, Surprise" />
-    <meta name="author" content="Dennis Nzioki" />
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="3 days" />
-    <meta name="language" content="English" />
-    <meta name="web_author" content="Dennis Nzioki" />
-    <meta name="reply-to" content="" />
-    <meta name="rating" content="general" />
-    <meta name="og:title" content="There is a Surprise" />
-    <meta name="og:description" content="There is a surprise." />
-    <meta name="og:image" content="https://i.ibb.co/k6xD4nM/New-Project.jpg" />
-    <meta name="og:url" content="https://will-you-be-my-valentine-murex.vercel.app/" />
-    <meta name="og:site_name" content="There is a Surprise" />
-    <meta name="og:locale" content="en_US" />
-    <meta name="og:type" content="website" />
-    <meta name="og:author" content="Dennis Nzioki" />
-    <meta name="og:reply-to" content="" />
-    <meta name="og:web_author" content="Dennis Nzioki" />
-    <meta name="og:rating" content="general" />
-  </head>
-  <body>
-    <div class="flex f-aps">
-      <p>
-        Made with ❤️ by
-        <a rel="noopener" href="https://linktr.ee/dnxempire" target="_blank">Dennis Nzioki</a>
-        </p>
-      </p>
-      <a rel="noopener" target="_blank" href="https://github.com/DNXEMPIRE-1/WillYouBeMyValentine">
-        <img
-          class="image2"
-          src="https://logodix.com/logo/1205168.png"
-          alt="heyy"
-          id="heart1"
-        />
-      </a>
-    </div>
-    <h1 class="headerText" id="wedate">Do you want to be my Valentine? 🥺</h1>
-    <img class="image" src="./resources/happy1.gif" alt="heyy" id="mainImg" />
-    <div class="flex" id="btns">
-      <button
-        class="button"
-        id="yes"
-        onmouseenter="happy()"
-        onmouseleave="normal()"
-        onclick="yes()"
-      >
-        Yes 🥰
-      </button>
-      <button
-        class="button"
-        id="no"
-        onmouseenter="angry()"
-        onmouseleave="normal()"
-        onclick="no()"
-      >
-        No 😭
-      </button>
-    </div>
-    <div class="absImages" id="absImg">
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
-      <img class="image1" src="./resources/heart.gif" alt="heyy" />
 
-      <!-- <img class="image2" src="./resources/sad.gif" alt="heyy" /> -->
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine? 💖</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="A special surprise for you." />
+  <meta name="author" content="pappukrs" />
+  <meta name="web_author" content="pappukrs" />
+  <meta name="og:title" content="Will You Be My Valentine?" />
+  <meta name="og:description" content="A special surprise for you." />
+  <meta name="og:image" content="https://i.ibb.co/k6xD4nM/New-Project.jpg" />
+  <meta name="og:type" content="website" />
+  <meta name="og:author" content="pappukrs" />
+</head>
 
-    <div class="model" id="model2">
-      <audio id="happyMusic" style="opacity: 0" controls loop>
-        <source src="./resources/happy.mp3" type="audio/mp3" />
-        Your browser does not support the audio element.
-      </audio>
-      <div class="model-content">
-        <p class="modelText" id="modelText2">I Love you 😘😘</p>
-        <img
-          class="modelImg"
-          id="modelImg2"
-          src="https://takelessons.com/blog/wp-content/uploads/2013/07/happy-cat.gif"
-          alt="heyy"
-        />
-        <button
-          class="button"
-          id="yes"
-          onmouseenter="happy()"
-          onmouseleave="normal()"
-          onclick="ly2()"
-        >
-          Love You Too 🥰
-        </button>
+<body>
+  <!-- Floating Hearts Background -->
+  <div class="background-hearts" id="backgroundHearts"></div>
+
+  <!-- Progress & UI -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="level-badge" id="levelBadge">LEVEL 1: INTRO</div>
+
+  <main class="glass-card">
+    <div id="game-container">
+      <!-- Level 1: Intro -->
+      <div id="scene-intro" class="fade-in">
+        <h1 class="header-text">Hey there... ✨</h1>
+        <p class="sub-text">I have something special to ask you, but first, we need to see if you're ready.</p>
+        <div class="main-image-container">
+          <img src="./resources/happy1.gif" alt="Surprise" class="main-image" />
+        </div>
+        <button class="btn btn-primary" onclick="startGame()">Start the Journey 🎁</button>
       </div>
-    </div>
 
-    <div id="model" class="model">
-      <audio id="sadMusic" style="opacity: 0" controls loop>
-        <source src="./resources/sad.mp3" type="audio/mp3" />
-        Your browser does not support the audio element.
-      </audio>
-      <div class="model-content">
-        <p class="modelText" id="modelText">Please</p>
-        <img
-          class="modelImg"
-          id="modelImg"
-          src="https://media1.tenor.com/images/9413ffc5a11722a3cc456a88810750bd/tenor.gif?itemid=14193216"
-          alt="heyy"
-        />
-        <div class="flex">
-          <button
-            class="button"
-            id="yes"
-            onmouseenter="happy()"
-            onmouseleave="normal()"
-            onclick="yes()"
-          >
-            Yes 🥰
-          </button>
-          <button
-            class="button"
-            id="no"
-            onmouseenter="angry()"
-            onmouseleave="normal()"
-            onclick="no()"
-          >
-            No 😭
-          </button>
+      <!-- Level 2: Heart Catcher (Placeholder) -->
+      <div id="scene-catch" style="display: none;">
+        <h1 class="header-text">Heart Catcher ❤️</h1>
+        <p class="sub-text">Prove your love! Catch 5 floating hearts to proceed.</p>
+        <p id="catch-counter" style="font-weight: bold; color: var(--primary-color);">Hearts Caught: 0/5</p>
+      </div>
+
+      <!-- Level 3: Quiz (Placeholder) -->
+      <div id="scene-quiz" style="display: none;">
+        <h1 class="header-text">Vibe Check ✨</h1>
+        <p id="quiz-question" class="sub-text">Loading question...</p>
+        <div class="quiz-container" id="quiz-options"></div>
+      </div>
+
+      <!-- Level 4: The Final Question -->
+      <div id="scene-final" style="display: none;">
+        <h1 class="header-text" id="wedate">Will you be my Valentine? 🥺</h1>
+        <div class="main-image-container">
+          <img src="./resources/happy1.gif" alt="Please?" class="main-image" id="questionImg" />
+        </div>
+        <div class="button-group" id="btns">
+          <button class="btn btn-primary" id="yesBtn" onclick="onYes()">Yes! 🥰</button>
+          <button class="btn btn-secondary" id="noBtn" onclick="onNo()">No 😭</button>
         </div>
       </div>
     </div>
-  </body>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <h2 class="header-text">Yay! I Love You! 😘</h2>
+      <img src="./resources/happy3.gif" alt="Happy" class="main-image" style="margin-bottom: 20px;">
+      <p class="sub-text">I knew you'd say yes! You're the best.</p>
+      <button class="btn btn-primary" onclick="closeModal()">Forever & Always ❤️</button>
+    </div>
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="happyMusic" loop>
+    <source src="./resources/happy.mp3" type="audio/mp3" />
+  </audio>
+  <audio id="sadMusic" loop>
+    <source src="./resources/sad.mp3" type="audio/mp3" />
+  </audio>
+
+  <footer class="footer">
+    <p>Made with ❤️ by <a href="https://github.com/pappukrs" target="_blank">pappukrs</a></p>
+    <a href="https://github.com/pappukrs/WillYouBeMyValentine" target="_blank">
+      <img src="https://logodix.com/logo/1205168.png" alt="GitHub">
+    </a>
+  </footer>
+
   <script src="script.js"></script>
+</body>
+
 </html>

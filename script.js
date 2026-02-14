@@ -1,116 +1,190 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Get all elements with class "image1"
-  var images = document.querySelectorAll(".image1");
-
-  // Function to set random position for an element
-  function setRandomPosition(element) {
-    element.style.top = Math.floor(Math.random() * window.innerHeight) + "px";
-    element.style.left = Math.floor(Math.random() * window.innerWidth) + "px";
-  }
-
-  // Set random position for each image
-  images.forEach(function (image) {
-    setRandomPosition(image);
-  });
-});
-
-function angry() {
-  // get all image with class image1 and change the src
-  var images = document.querySelectorAll(".image1");
-  var absImg = document.getElementById("absImg");
-  var mainImg = document.getElementById("mainImg");
-  mainImg.src = "./resources/sad1.gif";
-
-  absImg.style.display = "flex";
-
-  images.forEach(function (image) {
-    image.src = "./resources/sad.gif";
-  });
-}
-function happy() {
-  // get all image with class image1 and change the src
-  var images = document.querySelectorAll(".image1");
-  var absImg = document.getElementById("absImg");
-  absImg.style.display = "flex";
-  var mainImg = document.getElementById("mainImg");
-  mainImg.src = "./resources/happy3.gif";
-
-  images.forEach(function (image) {
-    image.src = "./resources/heart.gif";
-  });
-}
-
-const sadCat = [
+const sadCatImages = [
   "https://media1.tenor.com/images/9413ffc5a11722a3cc456a88810750bd/tenor.gif?itemid=14193216",
   "https://emoji.gg/assets/emoji/5228_cat_cri.gif",
   "https://media1.tenor.com/images/a0554662ae7c3c60c0a7fdadac74ef18/tenor.gif?itemid=13931206",
   "https://media3.giphy.com/media/qpCvOBBmBkble/giphy.gif",
-  "https://c.tenor.com/fpIAhF2jIY0AAAAC/cat-crying.gif",
-  "https://c.tenor.com/BP70qe8X0J8AAAAC/crycat-crying-cat.gif",
+  "https://c.tenor.com/fpIAhF2jIY0AAAAC/cat-crying.gif"
 ];
 
-const blackmail = [
-  "Please",
-  "I'm begging you",
-  "I'm crying",
-  "I'm sad",
-  "HUHUHUHU",
-  "Please Say Yes",
-  "I'm gonna cry",
+const blackmailMessages = [
+  "Wait, really? 🥺",
+  "Think about it again... 💔",
+  "I'll be so sad 😭",
+  "Please? For me? 🌹",
+  "I'm gonna cry... HUHUHU"
 ];
 
-function normal() {
-  var absImg = document.getElementById("absImg");
-  absImg.style.display = "none";
-  var mainImg = document.getElementById("mainImg");
-  mainImg.src = "./resources/happy1.gif";
-}
-
-let counter = 0;
-
-function no() {
-  counter++;
-  let sadMusic = document.getElementById("sadMusic");
-  let happyMusic = document.getElementById("happyMusic");
-  happyMusic.pause();
-  sadMusic.play();
-  let model = document.getElementById("model");
-  model.style.display = "none";
-  setTimeout(() => {
-    model.style.display = "flex";
-    const modelImage = document.getElementById("modelImg");
-    const modelText = document.getElementById("modelText");
-    modelImage.src = sadCat[Math.floor(Math.random() * sadCat.length)];
-    modelText.innerText =
-      blackmail[Math.floor(Math.random() * blackmail.length)];
-  }, 100);
-}
-
-function yes() {
-  if (counter >= 3) {
-    let model = document.getElementById("model2");
-    let model2 = document.getElementById("model");
-    let sadMusic = document.getElementById("sadMusic");
-    sadMusic.pause();
-    model2.style.display = "none";
-    let happyMusic = document.getElementById("happyMusic");
-    happyMusic.play();
-    model.style.display = "none";
-    setTimeout(() => {
-      model.style.display = "flex";
-    }, 100);
-    const wedate = document.getElementById("wedate");
-    const btns = document.getElementById("btns");
-    btns.style.display = "none";
-    wedate.innerText = "We are dating now. I love you cutie.";
-  } else {
-    alert("Kuch to Bhao khao cutie. Sidhe yes mat bola karo.");
+const quizQuestions = [
+  {
+    q: "How much do I love you?",
+    options: ["To the moon and back 🌙", "Infinity and beyond 🚀", "More than words can say ✨", "All of the above ✅"],
+    correct: 3
   }
+];
+
+let gameState = {
+  currentLevel: 1,
+  heartsCaught: 0,
+  currentQuiz: 0,
+  noCount: 0
+};
+
+// --- Initial Background ---
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.getElementById("backgroundHearts").appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+setInterval(createHeart, 400);
+
+// --- Level Transitions ---
+function updateProgress() {
+  const totalLevels = 4;
+  const progress = ((gameState.currentLevel - 1) / totalLevels) * 100;
+  document.getElementById("progressBar").style.width = progress + "%";
 }
 
-function ly2() {
-  let model = document.getElementById("model2");
-  model.style.display = "none";
-  let model2 = document.getElementById("model");
-  model2.style.display = "none";
+function showScene(sceneId) {
+  const scenes = ['scene-intro', 'scene-catch', 'scene-quiz', 'scene-final'];
+  scenes.forEach(id => {
+    const el = document.getElementById(id);
+    if (id === sceneId) {
+      el.style.display = 'block';
+      el.classList.add('fade-in');
+    } else {
+      el.style.display = 'none';
+      el.classList.remove('fade-in');
+    }
+  });
+  updateProgress();
+}
+
+// --- Level 1: Start ---
+function startGame() {
+  gameState.currentLevel = 2;
+  document.getElementById("levelBadge").innerText = "LEVEL 2: DEVOTION";
+  showScene('scene-catch');
+  startHeartCatcher();
+}
+
+// --- Level 2: Heart Catcher ---
+function startHeartCatcher() {
+  const interval = setInterval(() => {
+    if (gameState.currentLevel !== 2 || gameState.heartsCaught >= 5) {
+      clearInterval(interval);
+      return;
+    }
+    const heart = document.createElement("div");
+    heart.classList.add("clickable-heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = (20 + Math.random() * 60) + "%";
+    heart.style.top = (20 + Math.random() * 60) + "%";
+    heart.onclick = () => {
+      gameState.heartsCaught++;
+      document.getElementById("catch-counter").innerText = `Hearts Caught: ${gameState.heartsCaught}/5`;
+      heart.remove();
+      if (gameState.heartsCaught >= 5) {
+        setTimeout(startQuiz, 500);
+      }
+    };
+    document.getElementById("scene-catch").appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
+  }, 1000);
+}
+
+// --- Level 3: Quiz ---
+function startQuiz() {
+  gameState.currentLevel = 3;
+  document.getElementById("levelBadge").innerText = "LEVEL 3: VIBE CHECK";
+  showScene('scene-quiz');
+  loadQuiz();
+}
+
+function loadQuiz() {
+  const qData = quizQuestions[gameState.currentQuiz];
+  document.getElementById("quiz-question").innerText = qData.q;
+  const optionsContainer = document.getElementById("quiz-options");
+  optionsContainer.innerHTML = '';
+
+  qData.options.forEach((opt, index) => {
+    const btn = document.createElement("div");
+    btn.classList.add("quiz-option");
+    btn.innerText = opt;
+    btn.onclick = () => {
+      if (index === qData.correct) {
+        btn.classList.add('correct');
+        setTimeout(() => {
+          gameState.currentQuiz++;
+          if (gameState.currentQuiz < quizQuestions.length) {
+            loadQuiz();
+          } else {
+            startFinalBoss();
+          }
+        }, 500);
+      } else {
+        btn.classList.add('wrong');
+        setTimeout(() => btn.classList.remove('wrong'), 500);
+      }
+    };
+    optionsContainer.appendChild(btn);
+  });
+}
+
+// --- Level 4: Final Boss ---
+function startFinalBoss() {
+  gameState.currentLevel = 4;
+  document.getElementById("levelBadge").innerText = "LEVEL 4: THE BIG ONE";
+  showScene('scene-final');
+  // Update progress for final state manually
+  document.getElementById("progressBar").style.width = "100%";
+}
+
+function onNo() {
+  gameState.noCount++;
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const questionText = document.getElementById("wedate");
+  const questionImg = document.getElementById("questionImg");
+  const sadMusic = document.getElementById("sadMusic");
+
+  sadMusic.play();
+
+  // Make Yes button bigger
+  const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+  yesBtn.style.fontSize = (currentSize * 1.2) + "px";
+  yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) * 1.1) + "px";
+
+  // Change text and image
+  questionText.innerText = blackmailMessages[Math.min(gameState.noCount - 1, blackmailMessages.length - 1)];
+  questionImg.src = sadCatImages[Math.min(gameState.noCount - 1, sadCatImages.length - 1)];
+
+  // Teleport No button randomly
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+  noBtn.style.position = 'fixed';
+  noBtn.style.left = (Math.random() * maxX) + 'px';
+  noBtn.style.top = (Math.random() * maxY) + 'px';
+}
+
+function onYes() {
+  const happyMusic = document.getElementById("happyMusic");
+  const sadMusic = document.getElementById("sadMusic");
+
+  sadMusic.pause();
+  happyMusic.play();
+
+  document.getElementById("successModal").style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById("successModal").style.display = 'none';
+  location.reload();
 }
