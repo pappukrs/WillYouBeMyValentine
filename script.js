@@ -14,20 +14,7 @@ const blackmailMessages = [
   "I'm gonna cry... HUHUHU"
 ];
 
-const quizQuestions = [
-  {
-    q: "How much do I love you?",
-    options: ["To the moon and back 🌙", "Infinity and beyond 🚀", "More than words can say ✨", "All of the above ✅"],
-    correct: 3
-  }
-];
-
-let gameState = {
-  currentLevel: 1,
-  heartsCaught: 0,
-  currentQuiz: 0,
-  noCount: 0
-};
+let noCount = 0;
 
 // --- Initial Background ---
 function createHeart() {
@@ -45,110 +32,18 @@ function createHeart() {
 }
 setInterval(createHeart, 400);
 
-// --- Level Transitions ---
-function updateProgress() {
-  const totalLevels = 4;
-  const progress = ((gameState.currentLevel - 1) / totalLevels) * 100;
-  document.getElementById("progressBar").style.width = progress + "%";
-}
+// --- Navigation ---
+function startJourney() {
+  const intro = document.getElementById("scene-intro");
+  const final = document.getElementById("scene-final");
 
-function showScene(sceneId) {
-  const scenes = ['scene-intro', 'scene-catch', 'scene-quiz', 'scene-final'];
-  scenes.forEach(id => {
-    const el = document.getElementById(id);
-    if (id === sceneId) {
-      el.style.display = 'block';
-      el.classList.add('fade-in');
-    } else {
-      el.style.display = 'none';
-      el.classList.remove('fade-in');
-    }
-  });
-  updateProgress();
-}
-
-// --- Level 1: Start ---
-function startGame() {
-  gameState.currentLevel = 2;
-  document.getElementById("levelBadge").innerText = "LEVEL 2: DEVOTION";
-  showScene('scene-catch');
-  startHeartCatcher();
-}
-
-// --- Level 2: Heart Catcher ---
-function startHeartCatcher() {
-  const interval = setInterval(() => {
-    if (gameState.currentLevel !== 2 || gameState.heartsCaught >= 5) {
-      clearInterval(interval);
-      return;
-    }
-    const heart = document.createElement("div");
-    heart.classList.add("clickable-heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = (20 + Math.random() * 60) + "%";
-    heart.style.top = (20 + Math.random() * 60) + "%";
-    heart.onclick = () => {
-      gameState.heartsCaught++;
-      document.getElementById("catch-counter").innerText = `Hearts Caught: ${gameState.heartsCaught}/5`;
-      heart.remove();
-      if (gameState.heartsCaught >= 5) {
-        setTimeout(startQuiz, 500);
-      }
-    };
-    document.getElementById("scene-catch").appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
-  }, 1000);
-}
-
-// --- Level 3: Quiz ---
-function startQuiz() {
-  gameState.currentLevel = 3;
-  document.getElementById("levelBadge").innerText = "LEVEL 3: VIBE CHECK";
-  showScene('scene-quiz');
-  loadQuiz();
-}
-
-function loadQuiz() {
-  const qData = quizQuestions[gameState.currentQuiz];
-  document.getElementById("quiz-question").innerText = qData.q;
-  const optionsContainer = document.getElementById("quiz-options");
-  optionsContainer.innerHTML = '';
-
-  qData.options.forEach((opt, index) => {
-    const btn = document.createElement("div");
-    btn.classList.add("quiz-option");
-    btn.innerText = opt;
-    btn.onclick = () => {
-      if (index === qData.correct) {
-        btn.classList.add('correct');
-        setTimeout(() => {
-          gameState.currentQuiz++;
-          if (gameState.currentQuiz < quizQuestions.length) {
-            loadQuiz();
-          } else {
-            startFinalBoss();
-          }
-        }, 500);
-      } else {
-        btn.classList.add('wrong');
-        setTimeout(() => btn.classList.remove('wrong'), 500);
-      }
-    };
-    optionsContainer.appendChild(btn);
-  });
-}
-
-// --- Level 4: Final Boss ---
-function startFinalBoss() {
-  gameState.currentLevel = 4;
-  document.getElementById("levelBadge").innerText = "LEVEL 4: THE BIG ONE";
-  showScene('scene-final');
-  // Update progress for final state manually
-  document.getElementById("progressBar").style.width = "100%";
+  intro.style.display = 'none';
+  final.style.display = 'block';
+  final.classList.add('fade-in');
 }
 
 function onNo() {
-  gameState.noCount++;
+  noCount++;
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
   const questionText = document.getElementById("wedate");
@@ -163,8 +58,8 @@ function onNo() {
   yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) * 1.1) + "px";
 
   // Change text and image
-  questionText.innerText = blackmailMessages[Math.min(gameState.noCount - 1, blackmailMessages.length - 1)];
-  questionImg.src = sadCatImages[Math.min(gameState.noCount - 1, sadCatImages.length - 1)];
+  questionText.innerText = blackmailMessages[Math.min(noCount - 1, blackmailMessages.length - 1)];
+  questionImg.src = sadCatImages[Math.min(noCount - 1, sadCatImages.length - 1)];
 
   // Teleport No button randomly
   const maxX = window.innerWidth - noBtn.offsetWidth;

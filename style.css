@@ -228,68 +228,6 @@ body {
   box-shadow: var(--shadow);
 }
 
-/* Game Containers */
-#game-container {
-  width: 100%;
-  max-width: 500px;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.clickable-heart {
-  position: absolute;
-  cursor: pointer;
-  font-size: 40px;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  user-select: none;
-  z-index: 50;
-  filter: drop-shadow(0 4px 10px rgba(255, 0, 0, 0.2));
-}
-
-.clickable-heart:active {
-  transform: scale(0.8);
-}
-
-.quiz-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.quiz-option {
-  background: white;
-  padding: 16px;
-  border-radius: 16px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 500;
-  text-align: left;
-}
-
-.quiz-option:hover {
-  background: #fff8fb;
-  border-color: var(--primary-color);
-  transform: translateX(5px);
-}
-
-.quiz-option.correct {
-  background: #e8f5e9;
-  border-color: #4caf50;
-  color: #2e7d32;
-}
-
-.quiz-option.wrong {
-  background: #ffebee;
-  border-color: #ef5350;
-  color: #c62828;
-}
-
 /* Transitions */
 .fade-in {
   animation: fadeIn 0.5s forwards;

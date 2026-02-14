@@ -20,39 +20,19 @@
   <!-- Floating Hearts Background -->
   <div class="background-hearts" id="backgroundHearts"></div>
 
-  <!-- Progress & UI -->
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <div class="level-badge" id="levelBadge">LEVEL 1: INTRO</div>
-
   <main class="glass-card">
     <div id="game-container">
       <!-- Level 1: Intro -->
       <div id="scene-intro" class="fade-in">
         <h1 class="header-text">Hey there... ✨</h1>
-        <p class="sub-text">I have something special to ask you, but first, we need to see if you're ready.</p>
+        <p class="sub-text">I have something special to ask you.</p>
         <div class="main-image-container">
           <img src="./resources/happy1.gif" alt="Surprise" class="main-image" />
         </div>
-        <button class="btn btn-primary" onclick="startGame()">Start the Journey 🎁</button>
+        <button class="btn btn-primary" onclick="startJourney()">Open Surprise 🎁</button>
       </div>
 
-      <!-- Level 2: Heart Catcher (Placeholder) -->
-      <div id="scene-catch" style="display: none;">
-        <h1 class="header-text">Heart Catcher ❤️</h1>
-        <p class="sub-text">Prove your love! Catch 5 floating hearts to proceed.</p>
-        <p id="catch-counter" style="font-weight: bold; color: var(--primary-color);">Hearts Caught: 0/5</p>
-      </div>
-
-      <!-- Level 3: Quiz (Placeholder) -->
-      <div id="scene-quiz" style="display: none;">
-        <h1 class="header-text">Vibe Check ✨</h1>
-        <p id="quiz-question" class="sub-text">Loading question...</p>
-        <div class="quiz-container" id="quiz-options"></div>
-      </div>
-
-      <!-- Level 4: The Final Question -->
+      <!-- The Final Question -->
       <div id="scene-final" style="display: none;">
         <h1 class="header-text" id="wedate">Will you be my Valentine? 🥺</h1>
         <div class="main-image-container">
